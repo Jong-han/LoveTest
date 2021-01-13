@@ -1,5 +1,7 @@
 # LoveTest
 이 프로젝트는 Kotlin 학습을 위해 강좌를 보고 따라한 프로젝트 입니다.
+
+
 강좌 : https://www.youtube.com/watch?v=IDVnZPjRCYg&list=PLxBf91VkJLZ_XosvQ5yJnJB3k3iho2XbV
 
 
