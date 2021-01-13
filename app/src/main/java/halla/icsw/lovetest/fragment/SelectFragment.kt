@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import halla.icsw.lovetest.R
+import halla.icsw.lovetest.databinding.FragmentQuestionBinding
+import halla.icsw.lovetest.databinding.FragmentSelectBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,10 +23,13 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SelectFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SelectFragment : Fragment() {
+class SelectFragment : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    lateinit var binding: FragmentSelectBinding
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +44,18 @@ class SelectFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_select, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_select,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+        binding.option1.setOnClickListener(this)
+        binding.option2.setOnClickListener(this)
+        binding.option3.setOnClickListener(this)
+        binding.option4.setOnClickListener(this)
+        binding.imageView2.setOnClickListener(this)
     }
 
     companion object {
@@ -56,5 +76,20 @@ class SelectFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0!!.id){
+            binding.option1.id -> sendOption(1)
+            binding.option2.id -> sendOption(2)
+            binding.option3.id -> sendOption(3)
+            binding.option4.id -> sendOption(4)
+            binding.imageView2.id -> navController.popBackStack()
+        }
+    }
+
+    fun sendOption(index :Int){
+        var bundle = bundleOf("index" to index)
+        navController.navigate(R.id.action_selectFragment_to_resultFragment,bundle)
     }
 }

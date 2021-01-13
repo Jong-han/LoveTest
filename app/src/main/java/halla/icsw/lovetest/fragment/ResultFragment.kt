@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import halla.icsw.lovetest.R
+import halla.icsw.lovetest.databinding.FragmentQuestionBinding
+import halla.icsw.lovetest.databinding.FragmentResultBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +27,9 @@ class ResultFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var binding: FragmentResultBinding
+    lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +42,40 @@ class ResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_result, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_result,container,false)
+        return binding.root
+    }
+
+    var option = -1
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        option = arguments?.getInt("index") ?: -1
+        navController = Navigation.findNavController(view)
+        setResult(option)
+        binding.homeButton.setOnClickListener {
+            navController.navigate(R.id.action_resultFragment_to_mainFragment)
+        }
+    }
+
+    fun setResult(option :Int){
+        when (option){
+            1-> {binding.resultMessage.setText("You are a QURTTER")
+                binding.resultMessage2.setText("You can let the person easily.")
+            }
+            2-> {binding.resultMessage.setText("You should focus on yourself")
+                binding.resultMessage2.setText("You become really clingy to your ex.")
+            }
+            3-> {binding.resultMessage.setText("You should take it easy")
+                binding.resultMessage2.setText("You cna to crazy things no matter what it takes.")
+            }
+            4-> {binding.resultMessage.setText("You are pretty mature")
+                binding.resultMessage2.setText("You can easily accept the break-up.")
+            }
+            else-> {binding.resultMessage.setText("ERROR")
+                binding.resultMessage2.setText("SORRY.")
+            }
+        }
     }
 
     companion object {

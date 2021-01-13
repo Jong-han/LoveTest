@@ -3,37 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment2">
-    <fragment
-        android:id="@+id/mainFragment2"
-        android:name="halla.icsw.lovetest.fragment.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment2_to_questionFragment"
-            app:destination="@id/questionFragment" />
-    </fragment>
+    app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/resultFragment"
         android:name="halla.icsw.lovetest.fragment.ResultFragment"
         android:label="fragment_result"
-        tools:layout="@layout/fragment_result" />
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit"/>
+    </fragment>
     <fragment
         android:id="@+id/questionFragment"
         android:name="halla.icsw.lovetest.fragment.QuestionFragment"
         android:label="fragment_question"
-        tools:layout="@layout/fragment_question" >
+        tools:layout="@layout/fragment_question">
         <action
             android:id="@+id/action_questionFragment_to_selectFragment"
-            app:destination="@id/selectFragment" />
+            app:destination="@id/selectFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
         android:id="@+id/selectFragment"
         android:name="halla.icsw.lovetest.fragment.SelectFragment"
         android:label="fragment_select"
-        tools:layout="@layout/fragment_select" >
+        tools:layout="@layout/fragment_select">
         <action
             android:id="@+id/action_selectFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
+            app:destination="@id/resultFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="halla.icsw.lovetest.fragment.MainFragment"
+        android:label="MainFragment">
+        <action
+            android:id="@+id/action_mainFragment_to_questionFragment"
+            app:destination="@id/questionFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit" />
     </fragment>
 </navigation>
